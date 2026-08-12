@@ -1,0 +1,3 @@
+{
+  "crons": [{ "path": "/api/cron/generate-circulars", "schedule": "0 3 * * *" }]
+}
