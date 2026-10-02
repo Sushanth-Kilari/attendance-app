@@ -1,0 +1,17 @@
+{
+  "centre_code": "TC-HYD-014",
+  "observations": [
+    {
+      "camera_label": "Lab-1 front",
+      "observed_at": "2026-10-02T09:00:00Z",
+      "person_count": 24,
+      "equipment": {
+        "Desktop computer": { "count": 12, "operating": 11 },
+        "Welding bench": 6
+      },
+      "frames_sampled": 12,
+      "mean_confidence": 0.812,
+      "model_version": "yolov8n-coco"
+    }
+  ]
+}

@@ -66,3 +66,17 @@ describe("parseIngestPayload", () => {
     );
   });
 });
+
+describe("worker contract", () => {
+  // The Python worker's tests pin its output to this same fixture
+  // (worker/tests/test_contract.py), so neither side can drift alone.
+  it("accepts the payload the edge worker produces", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { resolve } = await import("node:path");
+    const fixture = JSON.parse(readFileSync(resolve(__dirname, "../../worker/tests/fixtures/payload_example.json"), "utf8"));
+    const r = parseIngestPayload(fixture);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.value.observations[0].equipment["Desktop computer"]).toEqual({ count: 12, operating: 11 });
+  });
+});

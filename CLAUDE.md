@@ -55,7 +55,8 @@ never frames, crops or identities. No face recognition anywhere.
 - M1 (done): centres + sanctioned inventory (migrations 021, 022), monitor role, admin Centres/Inventory pages, /monitor landing
 - M2 (code written; migration 023 NOT yet applied/verified): video_observations + discrepancies, POST /api/video-ingest, SQL discrepancy engine, admin Cameras page + per-centre ingest keys.
   Ingest is a SECURITY DEFINER rpc (ingest_video_observation) authenticated by a hashed per-centre key, so no service-role key is used. Engine compares PEAK head-count (minus 1 instructor, tolerance max(2,15%)) to claimed present+late, and PEAK equipment per day to sanctioned inventory. Monitors get no row access to attendance_records — an aggregate view lands in M4.
-- M3: Python worker in worker/ (person detector, frame sampling, offline queue, low-bandwidth mode)
+- M3 (done, 58 pytest + TS contract test): Python edge worker in worker/ — ONNX YOLO on CPU, ROI, windowed peak counts, SQLite offline outbox, batched uploader.
+  No model weights bundled (COCO has no workbench/machinery; custom model needed for those). Not yet run against real footage or benchmarked.
 - M4: /monitor dashboard — centres ranked by discrepancy, per-session drill-down, follow-up status
 - M5: privacy design note + false-positive/false-negative evaluation on labelled sample footage
 Apply order: 021 (enum value, run alone) -> 022 -> 023.

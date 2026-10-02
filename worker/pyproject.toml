@@ -1,0 +1,29 @@
+[project]
+name = "edgeworker"
+version = "0.1.0"
+description = "Privacy-preserving edge video analytics worker for training-centre attendance and infrastructure monitoring"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26",
+  "onnxruntime>=1.18",
+  "opencv-python-headless>=4.9",
+  "requests>=2.31",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "onnx>=1.16"]
+
+[project.scripts]
+edgeworker = "edgeworker.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["edgeworker*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

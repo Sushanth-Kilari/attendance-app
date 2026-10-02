@@ -45,3 +45,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# edge worker
+/worker/.venv/
+/worker/data/
+/worker/models/
+/worker/config.yaml
+/worker/*.egg-info/
+__pycache__/
+.pytest_cache/
+*.onnx

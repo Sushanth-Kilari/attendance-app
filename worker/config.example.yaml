@@ -1,0 +1,50 @@
+# Copy to config.yaml. Never put the ingest key in this file — it is read from
+# the INGEST_KEY environment variable (generate it at /admin/cameras in the app).
+
+centre_code: TC-HYD-014
+api_url: https://YOUR-APP.vercel.app/api/video-ingest
+
+model:
+  path: models/yolov8n.onnx   # YOLOv8-format ONNX. You supply this file.
+  names: coco                 # "coco", or a path to a one-label-per-line file for a custom model
+  input_size: 640             # 416 or 320 is ~2-4x faster on a low-end CPU, at some cost to far-away people
+  conf: 0.35
+  iou: 0.5
+  version: yolov8n-coco       # recorded with every observation so accuracy can be tracked per model
+
+# Low-bandwidth knobs. One frame every sample_interval_s is analysed; every
+# window_s of samples is folded into ONE ~250-byte observation per camera.
+# 60 s windows = ~15 KB per camera per hour. Raise window_s on a poor link.
+sample_interval_s: 5
+window_s: 60
+
+queue:
+  path: data/queue.sqlite     # offline outbox; survives power cuts and dead links
+  max_rows: 50000
+
+upload:
+  batch_size: 50              # server accepts at most 100 per request
+  interval_s: 60
+  timeout_s: 15
+  max_attempts: 8
+
+cameras:
+  # `label` must match the camera label registered at /admin/cameras.
+  - label: Lab-1 front
+    source: rtsp://user:pass@192.168.1.20:554/stream1   # RTSP URL, device index (0), or a video file path
+    # Optional: normalised [x, y] polygon (0..1) of the training area. Only
+    # detections inside it count, so passers-by in a corridor are ignored.
+    roi: [[0.05, 0.10], [0.95, 0.10], [0.95, 0.95], [0.05, 0.95]]
+    # Optional: items THIS camera can actually see. Each key must equal an item
+    # name in the centre's sanctioned inventory exactly. An item listed here is
+    # reported even when the count is 0 (that is how "missing" is detected), so
+    # only list items that are visible from this camera. Do not list items it
+    # cannot see.
+    equipment:
+      "Desktop computer":
+        classes: [tv, laptop]       # detector labels that count as this item
+        operability: display_on     # none | display_on | motion  (heuristic, see operability.py)
+
+  - label: Classroom A
+    source: 0
+    # No equipment: this camera only contributes the head-count.
