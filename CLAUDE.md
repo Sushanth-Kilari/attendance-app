@@ -44,6 +44,8 @@ teaching_assignments (faculty x section x subject) -> class_sessions
 8. Polish: mobile layout pass, empty states, error handling, loading states
 
 ## Scheme-monitoring extension (video analytics) — phases M1–M5
+**Read `docs/PROBLEM_STATEMENT.md` first** — the full problem statement, deliverables and a requirement-by-requirement coverage map. Check every design decision against it; the goal is to match the problem statement as closely as possible.
+
 Adapts this system to the "AI video analytics for skilling-centre attendance
 and infrastructure compliance" problem statement. Additive: the attendance
 model above is unchanged. Mapping: departments = scheme/trade, sections =
