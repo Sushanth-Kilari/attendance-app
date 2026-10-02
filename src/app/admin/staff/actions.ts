@@ -11,7 +11,7 @@ export type AddStaffState =
   | { success: true; email: string; tempPassword: string; error?: never }
   | undefined;
 
-const STAFF_ROLES: AppRole[] = ["faculty", "hod", "admin"];
+const STAFF_ROLES: AppRole[] = ["faculty", "hod", "admin", "monitor"];
 
 const PASSWORD_CHARS = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
 

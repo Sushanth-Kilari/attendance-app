@@ -10,18 +10,29 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { createSection, updateSection } from "./actions";
 
 type Department = { id: string; code: string };
-type Section = { id: string; department_id: string; year: number; name: string; academic_year: string };
+type Centre = { id: string; code: string };
+type Section = {
+  id: string;
+  department_id: string;
+  year: number;
+  name: string;
+  academic_year: string;
+  centre_id: string | null;
+};
 
 export function SectionForm({
   departments,
+  centres,
   editing,
 }: {
   departments: Department[];
+  centres: Centre[];
   editing?: Section;
 }) {
   const action = editing ? updateSection : createSection;
   const [, formAction, pending] = useToastAction(action, editing ? "Section updated." : "Section added.");
   const departmentLabels = new Map(departments.map((d) => [d.id, d.code]));
+  const centreLabels = new Map(centres.map((c) => [c.id, c.code]));
 
   return (
     <form action={formAction} className="flex flex-wrap items-end gap-3 rounded-xl border bg-card p-4 shadow-sm">
@@ -63,6 +74,22 @@ export function SectionForm({
           placeholder="2026-27"
           className="w-28"
         />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="centre_id">Centre</Label>
+        <Select name="centre_id" defaultValue={editing?.centre_id ?? undefined}>
+          <SelectTrigger id="centre_id" className="w-36">
+            <SelectValue placeholder="None">{(value: string) => centreLabels.get(value) ?? "None"}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {centres.map((c) => (
+              <SelectItem key={c.id} value={c.id}>
+                {c.code}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <Button type="submit" disabled={pending}>

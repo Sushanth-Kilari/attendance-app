@@ -13,7 +13,7 @@ import { addStaff } from "./actions";
 
 type Department = { id: string; code: string };
 
-const ROLE_LABELS: Record<string, string> = { faculty: "Faculty", hod: "HOD", admin: "Admin" };
+const ROLE_LABELS: Record<string, string> = { faculty: "Faculty", hod: "HOD", admin: "Admin", monitor: "Monitor" };
 
 export function StaffForm({ departments }: { departments: Department[] }) {
   const [state, formAction, pending] = useActionState(addStaff, undefined);
@@ -50,6 +50,7 @@ export function StaffForm({ departments }: { departments: Department[] }) {
               <SelectItem value="faculty">Faculty</SelectItem>
               <SelectItem value="hod">HOD</SelectItem>
               <SelectItem value="admin">Admin</SelectItem>
+              <SelectItem value="monitor">Monitor</SelectItem>
             </SelectContent>
           </Select>
         </div>

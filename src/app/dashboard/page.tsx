@@ -11,6 +11,7 @@ const ROLE_LABEL: Record<string, string> = {
   faculty: "Faculty",
   hod: "HOD",
   admin: "Admin",
+  monitor: "Monitor",
 };
 
 export default async function DashboardPage() {
@@ -46,6 +47,10 @@ export default async function DashboardPage() {
 
   if (profile?.role === "hod") {
     redirect("/reports");
+  }
+
+  if (profile?.role === "monitor") {
+    redirect("/monitor");
   }
 
   if (error || !profile) {

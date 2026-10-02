@@ -1,4 +1,4 @@
-export type AppRole = "student" | "faculty" | "hod" | "admin";
+export type AppRole = "student" | "faculty" | "hod" | "admin" | "monitor";
 
 export type AttendanceStatus = "present" | "absent" | "late" | "on_duty";
 

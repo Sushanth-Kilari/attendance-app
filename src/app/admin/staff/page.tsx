@@ -24,7 +24,7 @@ export default async function StaffPage() {
     supabase
       .from("profiles")
       .select("id, full_name, email, role, is_active, departments(code)")
-      .in("role", ["faculty", "hod", "admin"])
+      .in("role", ["faculty", "hod", "admin", "monitor"])
       .order("full_name"),
   ]);
 

@@ -12,6 +12,8 @@ function parseSectionFields(formData: FormData) {
     year: Number(formData.get("year")),
     name: String(formData.get("name") ?? "").trim().toUpperCase(),
     academic_year: String(formData.get("academic_year") ?? "").trim(),
+    // Optional: which training centre hosts this batch (empty = unassigned).
+    centre_id: String(formData.get("centre_id") ?? "") || null,
   };
 }
 
