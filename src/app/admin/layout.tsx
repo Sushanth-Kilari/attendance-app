@@ -1,10 +1,13 @@
-import { BarChart3, Building2, BookOpen, CalendarClock, CalendarDays, GraduationCap, LayoutDashboard, Sparkles, UserCog, UserCog2, Users, Wifi } from "lucide-react";
+import { BarChart3, Building2, BookOpen, CalendarClock, CalendarDays, GraduationCap, LayoutDashboard, MapPin, Package, Video, Sparkles, UserCog, UserCog2, Users, Wifi } from "lucide-react";
 import { requireRole } from "@/lib/auth/require-role";
 import { DashboardShell } from "@/components/dashboard-shell";
 import type { NavItem } from "@/components/app-sidebar";
 
 const navItems: NavItem[] = [
   { title: "Overview", href: "/admin", icon: <LayoutDashboard /> },
+  { title: "Centres", href: "/admin/centres", icon: <MapPin /> },
+  { title: "Inventory", href: "/admin/inventory", icon: <Package /> },
+  { title: "Cameras", href: "/admin/cameras", icon: <Video /> },
   { title: "Departments", href: "/admin/departments", icon: <Building2 /> },
   { title: "Sections", href: "/admin/sections", icon: <Users /> },
   { title: "Subjects", href: "/admin/subjects", icon: <BookOpen /> },
